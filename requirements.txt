@@ -3,3 +3,4 @@ scikit-learn==1.7.0
 pandas==2.3.0
 matplotlib==3.10.3
 flask
+Flask-SQLAlchemy
