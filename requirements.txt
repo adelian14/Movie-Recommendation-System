@@ -7,6 +7,5 @@ Flask-Login
 Werkzeug
 torch
 numpy
-lightfm
 joblib
 scipy
