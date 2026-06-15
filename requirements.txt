@@ -6,3 +6,9 @@ flask
 Flask-SQLAlchemy
 flask_login
 torch
+pandas
+numpy
+torch
+lightfm
+joblib
+scipy
