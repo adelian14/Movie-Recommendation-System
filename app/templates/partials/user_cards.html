@@ -1,14 +1,13 @@
 {% for user in users %}
 <div class="col">
-    <a href="{{ url_for('user.user_profile', user_id=user.userId) }}" class="text-decoration-none text-light">
-        <div class="card h-100 shadow-sm border-0 bg-dark user-card">
-            <div class="card-body d-flex flex-column justify-content-between">
+    <a href="{{ url_for('user.user_profile', user_id=user.userId) }}" class="text-decoration-none">
+        <div class="card user-card h-100">
+            <div class="card-body d-flex align-items-center gap-3">
+                <span class="user-avatar">🎬</span>
                 <div>
-                    <h3 class="card-title mb-1">User #{{ user.userId }}</h3>
-                    <p class="card-text text-muted mb-2">
-                        🎬 {{ user.num_rated_movies }} rated<br>
-                        ⭐ Avg Rating: {{ user.avg_rating_given }}
-                    </p>
+                    <h3 class="card-title mb-2">User #{{ user.userId }}</h3>
+                    <p class="meta-row mb-1">🎬 {{ user.num_rated_movies }} rated</p>
+                    <p class="meta-row mb-0">⭐ Avg Rating: {{ user.avg_rating_given }}</p>
                 </div>
             </div>
         </div>

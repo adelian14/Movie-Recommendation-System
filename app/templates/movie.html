@@ -4,52 +4,57 @@
 <div class="movie-hero" style="background-image: url('{{ movie.backdrop_url }}');">
     <div class="movie-hero-overlay">
         <div class="container h-100 d-flex flex-column justify-content-end">
-            <div class="text-white pb-4">
-                <h1 class="display-5 fw-bold">{{ movie.title }}</h1>
+            <div class="pb-4">
+                <p class="eyebrow mb-2">Now viewing</p>
+                <h1 class="display-4 fw-bold mb-0">{{ movie.title }}</h1>
             </div>
         </div>
     </div>
 </div>
 {% endif %}
 
-<div class="container mt-5">
-    <div class="row g-4">
+<div class="container {% if movie.backdrop_url %}mt-n5{% else %}mt-5{% endif %}" {% if movie.backdrop_url %}style="margin-top:-3rem;position:relative;z-index:2;"{% endif %}>
+    <div class="row g-5">
         <!-- Poster -->
         <div class="col-md-4">
             {% if movie.poster_url %}
-            <img src="{{ movie.poster_url }}" class="img-fluid rounded shadow poster-img" alt="{{ movie.title }}">
+            <img src="{{ movie.poster_url }}" class="img-fluid poster-img" alt="{{ movie.title }}" style="border-radius:var(--radius);box-shadow:var(--shadow);width:100%;">
             {% else %}
-            <div class="bg-secondary text-white text-center p-5 rounded">
-                <span>No Poster Available</span>
-            </div>
+            <div class="poster-placeholder" style="border-radius:var(--radius);">NO POSTER AVAILABLE</div>
             {% endif %}
         </div>
 
         <!-- Movie Details -->
         <div class="col-md-8">
-            <h2 class="text-light">{{ movie.title }}</h2>
+            {% if not movie.backdrop_url %}
+            <h2 class="mb-2">{{ movie.title }}</h2>
+            {% endif %}
             {% if movie.tagline %}
-            <p class="fst-italic text-muted mb-2">“{{ movie.tagline }}”</p>
+            <p class="fst-italic mb-3" style="color:var(--accent-2);">“{{ movie.tagline }}”</p>
             {% endif %}
 
-            <div class="mb-3">
+            <div class="mb-4">
                 {% for genre in movie.genres %}
-                <span class="badge text-bg-dark me-1">{{ genre }}</span>
+                <span class="badge">{{ genre }}</span>
                 {% endfor %}
             </div>
 
-            <ul class="list-inline text-muted small mb-4">
-                {% if movie.release_year %}<li class="list-inline-item">📅 {{ movie.release_year }}</li>{% endif %}
-                {% if movie.runtime %}<li class="list-inline-item">🕒 {{ movie.runtime }} min</li>{% endif %}
-                <li class="list-inline-item">⭐ {{ movie.vote_average }} / 10</li>
-                <li class="list-inline-item">🎟️ {{ movie.vote_count }} votes</li>
-            </ul>
+            <div class="d-flex flex-wrap gap-4 mb-4">
+                {% if movie.release_year %}
+                <div><div class="stat-value" style="font-size:1.3rem;">📅 {{ movie.release_year }}</div><div class="stat-label">Released</div></div>
+                {% endif %}
+                {% if movie.runtime %}
+                <div><div class="stat-value" style="font-size:1.3rem;">🕒 {{ movie.runtime }}</div><div class="stat-label">Minutes</div></div>
+                {% endif %}
+                <div><div class="stat-value text-gradient" style="font-size:1.3rem;">⭐ {{ movie.vote_average }}/10</div><div class="stat-label">Rating</div></div>
+                <div><div class="stat-value" style="font-size:1.3rem;">🎟️ {{ movie.vote_count }}</div><div class="stat-label">Votes</div></div>
+            </div>
 
-            <h5 class="text-light">Overview</h5>
-            <p class="text-muted">{{ movie.overview or "No overview available." }}</p>
+            <h5 class="section-head mb-3">Overview</h5>
+            <p class="text-muted" style="line-height:1.7;">{{ movie.overview or "No overview available." }}</p>
             {% if current_user.is_authenticated %}
-            <div class="mt-4">
-                <h5 class="text-light">Your Rating</h5>
+            <div class="glass p-4 mt-4">
+                <h5 class="mb-3">Your Rating</h5>
 
                 <form id="rating-form" method="POST" action="{{ url_for('movie.rate_movie', movie_id=movie.movieId) }}">
                     <input type="hidden" name="rating" id="rating-input" value="{{ user_rating or 0 }}">
@@ -59,7 +64,9 @@
                             data-value="{{ i }}">&#9733;</span>
                         {% endfor %}
                     </div>
-                    <button type="submit" class="btn btn-sm btn-success mt-2">Submit Rating</button>
+                    <div>
+                        <button type="submit" class="btn btn-accent btn-sm mt-2">Submit Rating</button>
+                    </div>
                 </form>
             </div>
             {% endif %}

@@ -1,10 +1,13 @@
 {% if recommendations %}
-<hr class="my-3 border-light-subtle">
-<div class="d-flex justify-content-between align-items-center mt-3 mb-4">
-    <h4 class="mb-0">{{message}}</h4>
-    <form method="GET" class="d-flex align-items-center">
-        <label for="top_n" class="me-2 text-muted">Show</label>
-        <select name="top_n" id="top_n" class="form-select form-select-sm bg-dark text-light border-secondary" onchange="this.form.submit()">
+<hr class="my-5">
+<div class="d-flex flex-wrap gap-3 justify-content-between align-items-center mt-4 mb-4">
+    <div>
+        <p class="eyebrow mb-1">Recommended</p>
+        <h4 class="section-head mb-0">{{ message }}</h4>
+    </div>
+    <form method="GET" class="d-flex align-items-center gap-2">
+        <label for="top_n" class="form-label mb-0">Show</label>
+        <select name="top_n" id="top_n" class="form-select form-select-sm" style="width:auto;min-width:80px;" onchange="this.form.submit()">
             {% for n in [4, 6, 8, 10, 12] %}
             <option value="{{ n }}" {% if n==top_n %}selected{% endif %}>{{ n }}</option>
             {% endfor %}
@@ -17,22 +20,22 @@
     <div class="col">
         <a href="{{ url_for('movie.movie_page', movie_id=movie.movieId) }}" class="text-decoration-none">
             <div class="card rec-card h-100">
-                {% if movie.poster_url %}
-                <img src="{{ movie.poster_url }}" class="card-img-top rec-poster" alt="{{ movie.title }}">
-                {% else %}
-                <div class="card-img-top bg-secondary text-white text-center p-5">
-                    <span>No Image</span>
+                <div class="poster-wrap">
+                    {% if movie.poster_url %}
+                    <img src="{{ movie.poster_url }}" alt="{{ movie.title }}">
+                    {% else %}
+                    <div class="poster-placeholder">NO POSTER</div>
+                    {% endif %}
+                    <span class="rating-chip">⭐ {{ movie.vote_average }}</span>
                 </div>
-                {% endif %}
-                <div class="card-body px-3 py-2">
+                <div class="card-body px-3 py-3">
                     <h6 class="card-title mb-1">{{ movie.title }}</h6>
-                    <p class="card-text small text-muted mb-2">
-                        {% if movie.release_year %}{{ movie.release_year }} &bullet; {% endif %}
-                        ⭐ {{ movie.vote_average }}
+                    <p class="meta-row mb-2">
+                        {% if movie.release_year %}{{ movie.release_year }}{% endif %}
                     </p>
                     <div>
                         {% for genre in movie.genre_list[:2] %}
-                        <span class="badge me-1 small">{{ genre }}</span>
+                        <span class="badge mb-1">{{ genre }}</span>
                         {% endfor %}
                     </div>
                 </div>

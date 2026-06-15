@@ -1,18 +1,17 @@
 {% for r in ratings %}
-
 <tr>
-    <td style="width: 40px;">
-        <a href="{{ url_for('movie.movie_page', movie_id=r.movieId) }}" class="text-decoration-none text-light">
-            <img src="{{ r.poster_url }}" class="img-fluid rounded" alt="{{ r.title }}">
+    <td style="width: 56px;">
+        <a href="{{ url_for('movie.movie_page', movie_id=r.movieId) }}">
+            <img src="{{ r.poster_url }}" class="img-fluid" alt="{{ r.title }}"
+                 style="width:44px;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.5);">
         </a>
     </td>
     <td>
-        <a href="{{ url_for('movie.movie_page', movie_id=r.movieId) }}" class="text-light">
+        <a href="{{ url_for('movie.movie_page', movie_id=r.movieId) }}" class="fw-semibold">
             {{ r.title }}
         </a>
     </td>
-    <td>⭐ {{ r.user_rating }}</td>
-    <td>⭐ {{ r.vote_average }}</td>
+    <td><span class="badge" style="color:var(--gold) !important;border-color:rgba(255,195,77,0.35);">⭐ {{ r.user_rating }}</span></td>
+    <td class="text-muted">⭐ {{ r.vote_average }}</td>
 </tr>
-
 {% endfor %}

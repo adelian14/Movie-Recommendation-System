@@ -1,19 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container mt-5 d-flex justify-content-center">
-    <div class="col-md-6 bg-dark p-4 rounded-4 shadow border border-secondary-subtle">
-        <h2 class="mb-4 text-light">Sign Up</h2>
+<div class="container auth-shell">
+    <div class="glass auth-card">
+        <p class="eyebrow mb-2">Join the club</p>
+        <h2 class="mb-1">Create your <span class="text-gradient">Lumière</span> account</h2>
+        <p class="text-muted mb-4">Rate films and unlock personal picks.</p>
         <form method="POST">
             <div class="mb-3">
-                <label class="form-label text-light">Username</label>
-                <input name="username" class="form-control bg-dark text-light border-secondary" required>
+                <label class="form-label">Username</label>
+                <input name="username" class="form-control" required>
             </div>
             <div class="mb-4">
-                <label class="form-label text-light">Password</label>
-                <input type="password" name="password" class="form-control bg-dark text-light border-secondary" required>
+                <label class="form-label">Password</label>
+                <input type="password" name="password" class="form-control" required>
             </div>
-            <button class="btn btn-outline-light w-100">Sign Up</button>
+            <button class="btn btn-accent w-100">Sign Up</button>
         </form>
+        <p class="text-muted text-center mt-4 mb-0" style="font-size:0.9rem;">
+            Already a member? <a href="{{ url_for('auth.login') }}" class="text-gradient text-decoration-none fw-semibold">Log in</a>
+        </p>
     </div>
 </div>
 {% endblock %}

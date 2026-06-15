@@ -1,11 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container mt-5">
+    <!-- Header -->
+    <div class="mb-4">
+        <p class="eyebrow mb-2">Community</p>
+        <h1 class="display-6 fw-bold mb-0">Meet the <span class="text-gradient">raters</span>.</h1>
+    </div>
+
     <!-- Filter Form -->
-    <form method="GET" class="row g-3 mb-4 bg-dark p-4 rounded-3 shadow-sm border border-secondary-subtle">
+    <form method="GET" class="row g-3 mb-5 toolbar align-items-end">
         <div class="col-md-4">
-            <label class="form-label text-light">Min Movies Rated</label>
-            <select name="min_rated" class="form-select bg-dark text-light border-secondary">
+            <label class="form-label">Min Movies Rated</label>
+            <select name="min_rated" class="form-select">
                 <option value="0" {% if min_rated==0 %}selected{% endif %}>All</option>
                 <option value="10" {% if min_rated==10 %}selected{% endif %}>10+</option>
                 <option value="50" {% if min_rated==50 %}selected{% endif %}>50+</option>
@@ -17,8 +23,8 @@
         </div>
 
         <div class="col-md-4">
-            <label class="form-label text-light">Sort by</label>
-            <select name="sort" class="form-select bg-dark text-light border-secondary">
+            <label class="form-label">Sort by</label>
+            <select name="sort" class="form-select">
                 <option value="userId" {% if sort_by=='userId' %}selected{% endif %}>User ID</option>
                 <option value="num_rated_movies" {% if sort_by=='num_rated_movies' %}selected{% endif %}># Movies Rated
                 </option>
@@ -28,15 +34,15 @@
         </div>
 
         <div class="col-md-2">
-            <label class="form-label text-light">Order</label>
-            <select name="order" class="form-select bg-dark text-light border-secondary">
+            <label class="form-label">Order</label>
+            <select name="order" class="form-select">
                 <option value="asc" {% if sort_order=='asc' %}selected{% endif %}>Ascending</option>
                 <option value="desc" {% if sort_order=='desc' %}selected{% endif %}>Descending</option>
             </select>
         </div>
 
-        <div class="col-md-2 align-self-end">
-            <button class="btn btn-outline-light w-100">Apply</button>
+        <div class="col-md-2">
+            <button class="btn btn-accent w-100">Apply</button>
         </div>
     </form>
 
@@ -47,8 +53,8 @@
 
     <!-- Load More Button -->
     {% if has_more %}
-    <div class="text-center mt-4">
-        <button id="load-more-users" class="btn btn-outline-light px-5" data-page="1" data-min-rated="{{ min_rated }}"
+    <div class="text-center mt-5">
+        <button id="load-more-users" class="btn btn-ghost px-5" data-page="1" data-min-rated="{{ min_rated }}"
             data-sort="{{ sort_by }}" data-order="{{ sort_order }}">
             Load More
         </button>
